@@ -1,0 +1,21 @@
+<mat-toolbar>
+  <mat-toolbar-row class="mat-elevation-z1">
+    <span>Presence Tracker</span>
+
+    <span class="spacer"></span>
+    <div class="active-user">
+      <ng-container *ngIf="activeUsers.length > 5">
+        <div [style.right.px]="5">
+          +{{activeUsers.length - 5}}
+        </div>
+      </ng-container>
+      <div *ngFor="let activeUser of activeUsersUI; let i=index" [style.right.px]="(i+1)*42">
+        <img [src]="activeUser.profileUrl" [alt]="activeUser.name">
+      </div>
+
+
+    </div>
+    <button mat-raised-button color="primary">Share</button>
+  </mat-toolbar-row>
+
+</mat-toolbar>

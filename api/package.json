@@ -1,0 +1,30 @@
+{
+  "name": "magna",
+  "version": "1.0.0",
+  "description": "Magna Web scrapping UI",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel public/*.html",
+    "build": "parcel build public/*.html",
+    "start-dev": "nodemon ./server.js"
+  },
+  "author": "Abhishek Jha",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.0",
+    "aws-sdk": "^2.632.0",
+    "bcrypt": "^4.0.0",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2",
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.26.1",
+    "swagger-ui-express": "^4.1.3"
+  }
+}
