@@ -4,13 +4,13 @@ const http = require('http');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
-const mySqlConnection = require('./mysql/connection');
-// Static files
-const staticRouter = require('./routes/static/static.route');
+const mongodb = require("./mongodb/connection");
+const { checkDatabaseStability } = require('./mongodb/middlewares/middleware');
+
 // Routers
 const loginRouter = require('./routes/auth/login.route');
 const logoutRouter = require('./routes/auth/logout.route');
-const reportRouter = require('./routes/report/report.route')
+const userRouter = require('./routes/user/user.route');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -24,23 +24,21 @@ app.use(cookieParser());
 // expose dist directory
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Connect to MySQL DB
-mySqlConnection.connectToDB().then(connection => {
-    console.log("Connected to MySQL ", connection.threadId);
-}).catch(error => {
-    console.log("Error in Connecting MySQL ", error);
-    process.exit(0);
-});
 
 // Add headers
 app.use('/api/*', function (req, res, next) {
     // Website you wish to allow to connect
     res.setHeader('Content-Type', 'application/json');
 
+    res.setHeader(
+        "Access-Control-Allow-Origin",
+        "*"
+    );
+
     // Request methods you wish to allow
     res.setHeader(
         "Access-Control-Allow-Methods",
-        "GET, POST, OPTION, PUT, PATCH, DELETE"
+        "*"
     );
 
     // Request headers you wish to allow
@@ -58,12 +56,13 @@ app.use('/api/*', function (req, res, next) {
     next();
 });
 
+app.use(checkDatabaseStability);
 
 
 // API routes
 app.use('/api/login', loginRouter);
 app.use('/api/logout', logoutRouter);
-// app.use('/api/report', reportRouter);
+app.use('/api/users', userRouter);
 
 // Handle invalid routes
 app.use('*', (req, res) => {

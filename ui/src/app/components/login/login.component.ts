@@ -1,11 +1,12 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 //import { LocalStorage } from '@ngx-pwa/local-storage';
 
 import { LoginBean } from '../../beans/login.bean';
 
 
 import { ApiService } from '../../api.service';
+import { UserBean } from 'src/app/beans/user.bean';
 
 @Component({
   selector: 'app-login',
@@ -29,9 +30,9 @@ export class LoginComponent implements OnInit {
   validateUser() {
     this.loading = true;
     this.apiService.postData('login', this.loginFrom)
-      .subscribe(res => {
-        // localStorage.setItem("token_details", JSON.stringify(res));
-        this.router.navigate(['../home']);
+      .subscribe((user: UserBean) => {
+        localStorage.setItem('userDetails', JSON.stringify(user));
+        this.router.navigate(['../']);
         this.loading = false;
       },
         err => {

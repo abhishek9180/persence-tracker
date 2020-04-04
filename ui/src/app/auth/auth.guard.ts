@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
   ) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    let url: string = state.url;
+    const url: string = state.url;
     return this.checkLogin(url).pipe(map(res => res));
   }
 
@@ -25,7 +25,6 @@ export class AuthGuard implements CanActivate {
       .then(res => {
         return res;
       }).catch(e => {
-        //this.sharedService.clearLocalStorageItems().subscribe(res=> {});
         this.router.navigate(['/login']);
         return false;
       }));

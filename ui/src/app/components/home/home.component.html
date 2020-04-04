@@ -16,6 +16,11 @@
 
     </div>
     <button mat-raised-button color="primary">Share</button>
+    <div class="user-profile">
+      <div (click)="logoutUser()">
+        <img [src]="userDetails?.avtar" [alt]="userDetails?.email">
+      </div>
+    </div>
   </mat-toolbar-row>
 
 </mat-toolbar>

@@ -1,18 +1,16 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('../bcrypt/bcrypt');
-const userOperation = require('../mysql/operation/user.operation');
 const tokenSchema = require('../validators/token.validator');
 const ErrorModel = require('../models/error-model');
 
 // for now hardcoding, store it in environment var
-const PRIVATE_KEY = process.env.PRIVATE_KEY;
+const PRIVATE_KEY = process.env.PRIVATE_KEY.replace(/\\n/g, '\n');
 
-const PUBLIC_KEY = process.env.PUBLIC_KEY;
+const PUBLIC_KEY = process.env.PUBLIC_KEY.replace(/\\n/g, '\n');
 
-const i = 'Magna';        // Issuer
-const s = 'admin@magna.com';   // Subject
-const a = 'http://magna.com'; // Audience
-const t = '10h'; // Expire in 10 hours
+const i = 'presenceTracker';        // Issuer
+const s = 'admin@presence-tracker.com';   // Subject
+const a = 'http://presence-tracker.com'; // Audience
+const t = '1h'; // Expire in 10 hours
 
 const signOptions = {
     issuer: i,
@@ -77,7 +75,7 @@ module.exports = {
                     });
                     return reject(loginError);
                 } else {
-                    userOperation.findUserByEmail(value.username)
+                    /* userOperation.findUserByEmail(value.username)
                         .then(user => {
                             bcrypt.compareHash(value.password, user.password)
                                 .then(isMatch => {
@@ -105,7 +103,7 @@ module.exports = {
                                 description: 'User does not exist'
                             });
                             return reject(loginError);
-                        });
+                        }); */
                 }
             });
         });
