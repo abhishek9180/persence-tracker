@@ -19,16 +19,18 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       const userDetails: UserBean = JSON.parse(localStorage.getItem('userDetails'));
 
-      if (userDetails && userDetails.id) {
-        this.apiService.getDataById('users', userDetails.id)
+      if (userDetails && userDetails._id) {
+        this.apiService.getDataById('users', userDetails._id)
           .toPromise()
-          .then(res => { // Success
-            // localStorage.setItem('token_details', JSON.stringify(res));
+          .then((user: UserBean) => { // Success
+            localStorage.setItem('userDetails', JSON.stringify(user));
             resolve(true);
           }).catch(error => {
+            localStorage.clear();
             reject(false);
           });
       } else {
+        localStorage.clear();
         reject(false);
       }
     });

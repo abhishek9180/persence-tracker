@@ -1,10 +1,10 @@
 export class UserBean {
-  id: number;
+  _id: number;
   firstName: string;
   lastName: string;
   avtar?: string;
   email: string;
-  password: string;
+  password?: string;
   constructor() {
     this.firstName = null;
     this.lastName = null;

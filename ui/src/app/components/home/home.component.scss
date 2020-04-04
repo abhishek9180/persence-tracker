@@ -1,5 +1,25 @@
+.mat-toolbar-row > div,
+.mat-toolbar-row > button {
+  margin: 0 4px;
+}
 .spacer {
   flex: 1 1 auto;
+}
+
+.user-profile {
+  position: relative;
+  & > div {
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    & > img {
+      width: 40px;
+      height: 40px;
+    }
+  }
 }
 
 .active-user {

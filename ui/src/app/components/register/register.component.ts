@@ -31,10 +31,9 @@ export class RegisterComponent implements OnInit {
 
   registerUser() {
     this.loading = true;
-    this.apiService.postData('login', this.userForm)
+    this.apiService.postData('users', this.userForm)
       .subscribe(res => {
-        // localStorage.setItem("token_details", JSON.stringify(res));
-        this.router.navigate(['../home']);
+        this.router.navigate(['../login']);
         this.loading = false;
       },
         err => {

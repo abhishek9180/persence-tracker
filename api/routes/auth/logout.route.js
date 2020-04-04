@@ -1,7 +1,4 @@
 const express = require('express');
-const jwtService = require('../../jwt/jwt-service');
-const loginSchema = require('../../validators/login.validator');
-const ErrorModel = require('../../models/error-model');
 const router = express.Router();
 
 router.head('/', (req, res) => {
