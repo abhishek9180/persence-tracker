@@ -10,7 +10,8 @@
         </div>
       </ng-container>
       <div *ngFor="let activeUser of activeUsersUI; let i=index" [style.right.px]="(i+1)*42">
-        <img [src]="activeUser.profileUrl" [alt]="activeUser.name">
+        <img [src]="activeUser?.user?.avtar" [alt]="activeUser?.user?.firstName"
+          [matTooltip]="activeUser?.user?.firstName + ' ' + activeUser?.user?.lastName">
       </div>
 
 

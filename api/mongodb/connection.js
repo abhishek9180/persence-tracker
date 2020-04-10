@@ -5,6 +5,7 @@ const DB_URL = require('./config/datasource.config');
 
 mongoose.Promise = require('bluebird');
 mongoose.connect(DB_URL.url, {
+  useFindAndModify: false,
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
