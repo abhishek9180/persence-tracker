@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const cookieParser = require('cookie-parser');
+const socket = require('socket.io');
 require('dotenv').config();
 
 const mongodb = require("./mongodb/connection");
@@ -11,12 +12,16 @@ const { checkDatabaseStability } = require('./mongodb/middlewares/middleware');
 const loginRouter = require('./routes/auth/login.route');
 const logoutRouter = require('./routes/auth/logout.route');
 const userRouter = require('./routes/user/user.route');
+const documentRouter = require('./routes/document/document.route');
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 app.set('port', port);
 const server = http.createServer(app);
+// create socket connection
+const socketIo = socket(server);
+documentRouter(app, socketIo);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -63,6 +68,7 @@ app.use(checkDatabaseStability);
 app.use('/api/login', loginRouter);
 app.use('/api/logout', logoutRouter);
 app.use('/api/users', userRouter);
+// app.use('/api/doc/:id', documentRouter(app, socketIo));
 
 // Handle invalid routes
 app.use('*', (req, res) => {

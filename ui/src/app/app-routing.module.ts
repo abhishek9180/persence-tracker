@@ -13,8 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    loadChildren: () => import('./components/register/register.module').then(m => m.RegisterModule),
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./components/register/register.module').then(m => m.RegisterModule)
   },
   {
     path: '',
