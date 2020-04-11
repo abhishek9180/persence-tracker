@@ -18,8 +18,8 @@ function handleDatabaseInstability(req, res, next) {
     let dbError = new ErrorModel({
         code: 500,
         type: 'dbError',
-        message: 'Database ' + mongoose.STATES[mongoose.connection.readyState],
-        description: 'Database ' + mongoose.STATES[mongoose.connection.readyState]
+        message: "Internal Server error",
+        description: "Internal Server error"
     });
     res.status(dbError.code).send(dbError);
 }

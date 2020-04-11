@@ -39,22 +39,22 @@ app.use('/api/*', function (req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     // Allow CORS for dev
     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'DEV') {
-        res.setHeader(
-            "Access-Control-Allow-Origin",
-            "*"
-        );
+        // res.setHeader(
+        //     "Access-Control-Allow-Origin",
+        //     "*"
+        // );
 
         // Request methods you wish to allow
-        res.setHeader(
-            "Access-Control-Allow-Methods",
-            "*"
-        );
+        // res.setHeader(
+        //     "Access-Control-Allow-Methods",
+        //     "*"
+        // );
 
         // Request headers you wish to allow
-        res.setHeader(
-            "Access-Control-Allow-Headers",
-            "X-Requested-With,content-type"
-        );
+        // res.setHeader(
+        //     "Access-Control-Allow-Headers",
+        //     "X-Requested-With,content-type"
+        // );
     }
 
     // Set to true if you need the website to include cookies in the requests sent
@@ -66,7 +66,7 @@ app.use('/api/*', function (req, res, next) {
     next();
 });
 
-app.use(checkDatabaseStability);
+app.use('/api/*', checkDatabaseStability);
 
 
 // API routes
