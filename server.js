@@ -91,6 +91,7 @@ app.use('*', (req, res) => {
 
 
 server.listen(port, () => {
+    console.log(`Application Env: ${process.env.NODE_ENV}`);
     console.log(`App listening on port ${port}`);
     console.log(`open url http://localhost:${port}`);
 })

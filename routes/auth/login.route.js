@@ -24,11 +24,15 @@ router.post('/', (req, res) => {
             if (isMatch) {
                 jwtService.generateToken(value).then(token => {
                     res.cookie('accessToken', token, { Path: "/", httpOnly: true });
-                    if (user['password']) {
-                        delete user.password;
-                        console.log("pass: ", user);
+                    const userObj = {
+                        _id: user._id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email,
+                        avtar: user.avtar,
+                        __v: user._v
                     }
-                    res.status(200).send(user);
+                    res.status(200).send(userObj);
                 }).catch(error => {
                     let tokenError = new ErrorModel({
                         code: 500,
