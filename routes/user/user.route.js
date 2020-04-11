@@ -64,13 +64,13 @@ router.post('/', upload.single('avtar'), (req, res) => {
     }
     if (req.file && req.file.filename) {
         const { host } = req.headers
-        const filePath = `http://${host}/userProfile/${req.file.filename}`;
+        const filePath = `https://${host}/userProfile/${req.file.filename}`;
         // add user profile path
         value.avtar = filePath;
     } else {
         // add default profile
         const { host } = req.headers
-        const filePath = `http://${host}/userProfile/avtar-placeholder.png`;
+        const filePath = `https://${host}/userProfile/avtar-placeholder.png`;
         // add user profile path
         value.avtar = filePath;
     }
