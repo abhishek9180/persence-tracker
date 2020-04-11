@@ -6,12 +6,14 @@ import { ApiInterceptor } from './interceptors/app.interceptor';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ToasterComponent } from './shared/toaster/toaster.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ToasterComponent
   ],
   imports: [
     BrowserModule,
