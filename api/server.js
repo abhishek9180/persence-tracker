@@ -37,7 +37,7 @@ app.use('/api/*', function (req, res, next) {
     // Website you wish to allow to connect
     res.setHeader('Content-Type', 'application/json');
     // Allow CORS for dev
-    if (!process.env || process.env === 'DEV') {
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'DEV') {
         res.setHeader(
             "Access-Control-Allow-Origin",
             "*"

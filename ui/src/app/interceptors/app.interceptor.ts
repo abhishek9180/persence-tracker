@@ -3,12 +3,13 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs/internal/operators';
+import { AppService } from '../app.service';
 
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
   tokenDetails: any;
-  constructor(private router: Router) {
+  constructor(private router: Router, private appService: AppService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -45,8 +46,11 @@ export class ApiInterceptor implements HttpInterceptor {
 */
   private handleAuthError(err: HttpErrorResponse): Observable<any> {
     //handle your auth error or rethrow
-
-    // this.sharedService.showToast(err.error.error.message, true);
+    let errorMessage = "Something went wrong!"
+    if (err.error.description) {
+      errorMessage = err.error.description;
+    }
+    this.appService.showToast(errorMessage, true);
 
     if (err.status === 401) {
       // navigate /delete cookies or whatever
