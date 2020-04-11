@@ -12,7 +12,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 
-const config: SocketIoConfig = { url: environment.baseUrl, options: { path: 'api/socket/doc' } };
+const config: SocketIoConfig = { url: environment.baseUrl, options: { path: 'socket/doc' } };
 
 @NgModule({
   declarations: [HomeComponent, DialogComponent],
