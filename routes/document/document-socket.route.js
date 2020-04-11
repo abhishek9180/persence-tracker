@@ -106,7 +106,7 @@ module.exports = function (app, io) {
                         try {
                             const currentSocketIndex = documentUsers[0].socketId.indexOf(socket.id);
                             if (currentSocketIndex > -1) {
-                                // remove active socket id
+                                // remove active socket id 
                                 documentUsers[0].socketId.splice(currentSocketIndex, 1);
                                 const data = {
                                     online: documentUsers[0].socketId.length > 0 ? true : false,
