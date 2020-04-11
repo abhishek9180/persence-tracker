@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  baseUrl: string = environment.baseUrl;
+  baseUrl: string = environment.baseUrl + '/api/';
 
   constructor(public http: HttpClient) { }
 
