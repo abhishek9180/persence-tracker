@@ -20,8 +20,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     avtar: {
-        data: Buffer,
-        contentType: String
+        type: String
     }
 });
 

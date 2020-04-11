@@ -16,9 +16,12 @@
 
 
     </div>
+    <button mat-icon-button color="primary" (click)="showDocumentHistory()" matTooltip="View Document History">
+      <mat-icon aria-hidden="false" aria-label="Document History">history</mat-icon>
+    </button>
     <button mat-raised-button color="primary">Share</button>
     <div class="user-profile">
-      <div (click)="logoutUser()">
+      <div (click)="logoutUser()" matTooltip="Logout">
         <img [src]="userDetails?.avtar" [alt]="userDetails?.email">
       </div>
     </div>

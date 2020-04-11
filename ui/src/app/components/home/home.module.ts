@@ -9,11 +9,12 @@ import { HomeService } from './home.service';
 import { MaterialModule } from '../../material.module';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
 
-const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
+const config: SocketIoConfig = { url: 'http://localhost:5000', options: { path: '/api/socket/doc' } };
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, DialogComponent],
   imports: [
     CommonModule,
     MaterialModule,

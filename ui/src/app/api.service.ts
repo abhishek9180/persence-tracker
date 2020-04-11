@@ -15,6 +15,10 @@ export class ApiService {
     return this.http.post(this.baseUrl + apiName, JSON.stringify(body));
   }
 
+  postFormData(apiName: string, body: any): Observable<any> {
+    return this.http.post(this.baseUrl + apiName, body);
+  }
+
   getData(apiName: string): Observable<any> {
     return this.http.get(this.baseUrl + apiName);
   }

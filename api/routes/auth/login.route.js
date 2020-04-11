@@ -23,9 +23,10 @@ router.post('/', (req, res) => {
         bcrypt.compareHash(value.password, user.password).then(isMatch => {
             if (isMatch) {
                 jwtService.generateToken(value).then(token => {
-                    res.cookie('accessToken', token, { httpOnly: true });
-                    if (user.hasOwnProperty('password')) {
-                        delete user.password
+                    res.cookie('accessToken', token, { Path: "/", httpOnly: true });
+                    if (user['password']) {
+                        delete user.password;
+                        console.log("pass: ", user);
                     }
                     res.status(200).send(user);
                 }).catch(error => {

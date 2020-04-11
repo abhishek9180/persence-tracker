@@ -2,7 +2,7 @@ export class UserBean {
   _id: number;
   firstName: string;
   lastName: string;
-  avtar?: string;
+  avtar?: any;
   email: string;
   password?: string;
   constructor() {
