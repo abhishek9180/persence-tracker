@@ -41,6 +41,8 @@ build/Release
 node_modules/
 dist/
 jspm_packages/
+public/
+!public/upload/
 
 # TypeScript v1 declaration files
 typings/

@@ -1,4 +1,4 @@
-const jwtservice = require('../jwt/jwt-service');
+const jwtservice = require('../jwt/jwt.service');
 
 module.exports = {
     ensureAuthenticated: function (req, res, next) {

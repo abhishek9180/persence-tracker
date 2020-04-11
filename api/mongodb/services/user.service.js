@@ -14,6 +14,8 @@ function addNewUser(userInfo) {
             });
             return reject(dbError);
         });
+        // delete password
+        delete userInfo.password;
         resolve(userInfo);
     })
 }
@@ -37,18 +39,20 @@ function findUserByEmail(userEmail) {
 
 function findUserById(id) {
     return new Promise((resolve, reject) => {
-        userModel.findById(id, (err, user) => {
-            if (err) {
-                const dbError = new ErrorModel({
-                    code: 503,
-                    type: 'database',
-                    message: 'Error in getting user.',
-                    description: error
-                });
-                return reject(dbError);
-            }
-            resolve(user);
-        });
+        userModel.findById(id)
+            .select("-password")
+            .exec((err, user) => {
+                if (err) {
+                    const dbError = new ErrorModel({
+                        code: 503,
+                        type: 'database',
+                        message: 'Error in getting user.',
+                        description: error
+                    });
+                    return reject(dbError);
+                }
+                resolve(user);
+            });
     })
 }
 

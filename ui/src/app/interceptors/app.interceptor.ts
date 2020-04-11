@@ -12,14 +12,15 @@ export class ApiInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("intercept");
     // add request headers
-    request = request.clone({
-      setHeaders: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    });
+    if (request.url && !(request.url.includes('/users') && request.method === 'POST')) {
+      request = request.clone({
+        setHeaders: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        }
+      });
+    }
 
     // send cloned request with header to the next handler
     if (request.url && (request.url.includes('/login'))) {

@@ -19,7 +19,7 @@ const schema = Joi.object({
         .pattern(new RegExp('^[a-zA-Z0-9@#!$%&^*(){}?/.,]{8,10}$'))
         .required(),
 
-    avtar: Joi.string().allow(null)
+    avtar: Joi.any().allow(null)
 })
 
 module.exports = schema;

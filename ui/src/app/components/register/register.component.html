@@ -5,7 +5,7 @@
       <div class="register__content">
         <div class="register--profile">
         </div>
-        <form class="register--form" (ngSubmit)="registerUser()" #registerUserForm="ngForm">
+        <form class="register--form" #registerUserForm="ngForm">
           <mat-form-field appearance="outline">
             <mat-label>First Name</mat-label>
             <input matInput type="text" autocomplete="first-name" placeholder="Enter First Name"
@@ -54,8 +54,8 @@
 
 
           <div>
-            <button mat-raised-button class="register-btn" color="primary"
-              [disabled]="registerUserForm.invalid">Register</button>
+            <button mat-raised-button class="register-btn" color="primary" [disabled]="registerUserForm.invalid"
+              type="submit" (click)="registerUser()">Register</button>
 
           </div>
         </form>

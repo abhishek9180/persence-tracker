@@ -22,7 +22,6 @@ function updateOrCreateUserDocumentByQuery(query, data) {
     return new Promise((resolve, reject) => {
         documentUserModel.findOneAndUpdate(query, data, { upsert: true, setDefaultsOnInsert: true }, (error, result) => {
             if (error) {
-                console.log("error: ", error);
                 const dbError = new ErrorModel({
                     code: 503,
                     type: 'database',
@@ -57,7 +56,6 @@ function updateUserDocumentByQuery(query, data) {
     return new Promise((resolve, reject) => {
         documentUserModel.findOneAndUpdate(query, data, (error, result) => {
             if (error) {
-                console.log("error: ", error);
                 const dbError = new ErrorModel({
                     code: 503,
                     type: 'database',
@@ -70,6 +68,7 @@ function updateUserDocumentByQuery(query, data) {
         });
     });
 }
+
 
 
 module.exports = {

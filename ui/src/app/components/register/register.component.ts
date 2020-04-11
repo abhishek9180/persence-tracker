@@ -26,12 +26,18 @@ export class RegisterComponent implements OnInit {
   }
 
   uploadFile($event) {
-    console.log($event.target.files[0]); // outputs the first file
+    this.userForm.avtar = $event.target.files[0];
   }
 
   registerUser() {
     this.loading = true;
-    this.apiService.postData('users', this.userForm)
+    const formData = new FormData();
+    formData.append('firstName', this.userForm.firstName);
+    formData.append('lastName', this.userForm.lastName);
+    formData.append('email', this.userForm.email);
+    formData.append('password', this.userForm.password);
+    formData.append('avtar', this.userForm.avtar);
+    this.apiService.postFormData('users', formData)
       .subscribe(res => {
         this.router.navigate(['../login']);
         this.loading = false;

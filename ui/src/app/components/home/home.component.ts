@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Socket } from 'ngx-socket-io';
 import { interval } from 'rxjs';
 
 import { UserBean } from 'src/app/beans/user.bean';
 import { ApiService } from '../../api.service';
 import { HomeService } from './home.service';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +26,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private router: Router,
     private socket: Socket,
     private apiService: ApiService,
-    private homeService: HomeService
+    private homeService: HomeService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -35,11 +38,31 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.onLogout();
   }
 
+  openDialog(docUsers): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '320px',
+      height: '400px',
+      data: docUsers
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  showDocumentHistory() {
+    this.apiService.getData('doc/1/users').subscribe(docUsers => {
+      this.openDialog(docUsers);
+    },
+      error => {
+        console.log(error);
+      })
+  }
+
   addActiveUsers(activeUsers: any) {
     if (activeUsers && activeUsers.length) {
       activeUsers.forEach(docUser => {
         if (docUser.user) {
-          docUser.user = this.setDefaultImage(docUser.user);
           this.activeUsers.push(docUser);
         }
       });
@@ -53,7 +76,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     });
     if (index < 0) {
-      activeUser.user = this.setDefaultImage(activeUser.user);
       this.activeUsers.push(activeUser);
     } else {
       // update socket Id
@@ -86,8 +108,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   createActiveUserUI() {
     const maxIndex = this.activeUsers.length > 5 ? 5 : this.activeUsers.length;
     this.activeUsersUI = [];
-    console.log(maxIndex);
-    console.log(this.activeUsers);
     // insert only 5 users
     for (let i = 0; i < maxIndex; i++) {
       this.activeUsersUI.push(this.activeUsers[i]);
@@ -99,8 +119,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     const socketResponse = this.homeService
       .getActiveUsers()
       .subscribe((message: any) => {
-        console.log("users: ", message);
-        console.log("activeUser length: ", this.activeUsers.length);
         if (message.error !== true && message.userConnected === true) {
           this.addActiveUsers(message.activeUsers);
         } else if (message.error !== true && message.newUserConnected === true) {
@@ -146,17 +164,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.homeService.emitSocketEvent('logout', { userId: this.userDetails._id });
   }
 
-
-  setDefaultImage(user: UserBean) {
-    if (!user.avtar) {
-      user.avtar = '../../../assets/images/user-placeholder.png';
-    }
-    return user;
-  }
-
   getUserDetails() {
     try {
-      const userDetails = this.setDefaultImage(JSON.parse(localStorage.getItem('userDetails')));
+      const userDetails = JSON.parse(localStorage.getItem('userDetails'));
       return userDetails;
     } catch (err) {
       console.error(err);
